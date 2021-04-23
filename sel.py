@@ -19,8 +19,7 @@ def downloadItalux():
     password.send_keys(login.italuxPassword)
 
     driver.find_element_by_xpath('/html/body/div[3]/div/div/div/div/form/fieldset/div/button').click()
-    driver.find_element_by_xpath('/html/body/div[3]/div/div/div[1]/div/ul/li[6]/a').click()
-    driver.find_element_by_xpath('/html/body/div[3]/div/div/div[2]/div/div[2]/div[8]/div[1]/a').click()
+    driver.get('https://www.italux.pl/pl/pliki-do-pobrania/2-dostepnosci-produktow-aktualizacja-dobowa')
     time.sleep(10)
     driver.close()
 

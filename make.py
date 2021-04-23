@@ -46,7 +46,7 @@ def addLampex(date):
 
 def addLedea(date):
     df = pd.read_csv("./pliki_csv/Ledea.csv", sep=";", skip_blank_lines=True, encoding="utf-8", skipinitialspace=True)
-    dict = {'Nr_katalogowy': df['EAN'], 'qty': df['Stan_magazynowy']}
+    dict = {'Nr_katalogowy': df['EAN'], 'qty': df['Dostępność']}
     df = pd.DataFrame(dict)
     df = df.dropna()
     df.to_csv("Stany_Kaja" + date +".csv", encoding="utf-8", index=False, sep=";", mode='a', header=False)
@@ -122,7 +122,7 @@ def fixCSV(date):
     # df['Ilosc_produktow'] = df['Ilosc_produktow'].replace('.0', '', regex=True)
     # df['Ilosc_produktow'] = df['Ilosc_produktow'].astype(str).str.replace(r'.0','', regex=True)
 
-    df.to_csv("Stany_Kaja" + date +"asdasd.csv", encoding="utf-8", sep=";", index=False, mode="a")
+    df.to_csv("Stany_Kaja" + date +"_Fixed.csv", encoding="utf-8", sep=";", index=False, mode="a")
 
 def timestamp():
     today = date.today()
@@ -147,10 +147,10 @@ def makeCSV():
     addRabalux(d)
     # addTkLighting() pojebane kodowanie
     addZumaLine(d)
+    fixCSV(d)
 
 
 
 
 if __name__ == "__main__":
-    d = timestamp()
-    fixCSV(d)
+    makeCSV()
