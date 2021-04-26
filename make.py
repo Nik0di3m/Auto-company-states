@@ -75,7 +75,6 @@ def checkEkoLight():
     
     for file in os.listdir('./pliki_csv'):
         if file.startswith("produkty_"):
-            print(file)
             return file
 
 def addEkoLight(file, date):
