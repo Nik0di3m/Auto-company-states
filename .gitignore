@@ -5,3 +5,5 @@ Stany*
 gecko*
 __py*
 server.py
+tmp/
+data/

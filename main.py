@@ -13,6 +13,7 @@ from selenium.webdriver.common.keys import Keys
 from sel import seleniumDownload
 import login
 import server
+from vLookUp import vLookUp
 
 
 
@@ -131,6 +132,8 @@ def main():
     downloadZumaLine()
     seleniumDownload()
     # EkoLight i Italux ściąga się przez sellenium
+    os.chdir('../')
+    vLookUp()
 
 
 
