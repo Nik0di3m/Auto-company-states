@@ -10,10 +10,10 @@ from make import makeCSV
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from sel import seleniumDownload
-import login
-import server
-from vLookUp import vLookUp
+from module.sel import seleniumDownload
+import module.login as login
+import module.server as server
+from module.vLookUp import vLookUp
 
 
 
