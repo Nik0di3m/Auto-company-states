@@ -7,6 +7,7 @@ from pandas.core.frame import DataFrame
 from pandas.io.parsers import read_csv
 import csv
 import os
+import shutil
 from datetime import date
 
 
@@ -155,6 +156,29 @@ def timestamp():
     print(today)
     return today
 
+def cleanerTmp():
+    
+    for file in os.listdir('./tmp'):
+        if file.startswith("Stany"):
+            try:
+                shutil.rmtree('tmp/')
+            except:
+                print("Error")
+
+def csvCleaner():
+    if os.path.isdir('pliki_csv'):
+        try:
+            shutil.rmtree("pliki_csv")
+        except:
+            print("Error can't delete")
+
+def skuCleaner():
+    if os.path.isdir('pliki_sku'):
+        try:
+            shutil.rmtree("pliki_sku")
+        except:
+            print("Error can't delete")
+
 def makeCSV():
     d = timestamp()
     addEglo(d)
@@ -173,6 +197,9 @@ def makeCSV():
     addZumaLine(d)
     fixCSV(d)
     fixfixed(d)
+    cleanerTmp()
+    csvCleaner()
+    skuCleaner()
 
 
 

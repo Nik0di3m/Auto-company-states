@@ -69,11 +69,17 @@ def makedir():
     else:
         os.mkdir('tmp')
 
-def cleartmp():
-    try:
-        shutil.rmtree('/tmp', ignore_errors=True)
-    except:
-        print("Błąd")
+def makeMaytoniDir():
+    if os.path.isdir('tmp/maytoni'):
+        print('Maytoni Exist')
+    else:
+        os.mkdir('./tmp/maytoni')
+
+def makeHoldboxDir():
+    if os.path.isdir('tmp/holdbox'):
+        print('Holdbox Exist')
+    else:
+        os.mkdir('./tmp/holdbox')
 
 def makeHoldBox():
     df = pd.read_csv('data/holdbox.csv', sep=';', encoding="utf-8")
@@ -147,6 +153,8 @@ def hotfixHoldbox():
 
 def vLookUp():
     makedir()
+    makeHoldboxDir()
+    makeMaytoniDir()
     makeDF()
     makeDF1()
     merge()
