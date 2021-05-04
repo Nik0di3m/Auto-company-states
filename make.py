@@ -10,6 +10,8 @@ import os
 import shutil
 from datetime import date
 
+pd.set_option('precision', 0)
+
 
 def addEglo(date):
     df = pd.read_csv("./pliki_csv/Eglo.csv", sep=";", skip_blank_lines=True, skipinitialspace=True)
@@ -47,7 +49,7 @@ def addLampex(date):
 
 def addLedea(date):
     df = pd.read_csv("./pliki_csv/Ledea.csv", sep=";", skip_blank_lines=True, encoding="utf-8", skipinitialspace=True)
-    dict = {'Nr_katalogowy': df['EAN'], 'qty': df['Dostępność']}
+    dict = {'Nr_katalogowy': df['EAN'], 'qty': df['Stan_magazynowy']}
     df = pd.DataFrame(dict)
     df = df.dropna()
     df.to_csv("tmp/Stany_Kaja" + date +".csv", encoding="utf-8", index=False, sep=";", mode='a', header=False)
@@ -129,23 +131,25 @@ def addMaytoni(date):
 
 
 def fixCSV(date):
+    pd.set_option('precision', 0)
     df = pd.read_csv("tmp/Stany_Kaja" + date + ".csv", encoding="utf-8", sep=";")
     dict = {'Nr_katalogowy': df["Nr_katalogowy"], 'Ilosc_produktow':df['Ilosc_produktow']}
     df = DataFrame(dict)
-    df['Nr_katalogowy'] = df['Nr_katalogowy'].astype(str).str[0:13]
-    df['Ilosc_produktow'] = df['Ilosc_produktow'].round(decimals=0).astype('Int64')
     df = df.dropna()
-    # df['Ilosc_produktow'] = df['Ilosc_produktow'].replace('.0', '', regex=True)
-    # df['Ilosc_produktow'] = df['Ilosc_produktow'].astype(str).str.replace(r'.0','', regex=True)
-
-    df.to_csv("tmp/Stany_Kaja" + date +"_Fixed.csv", encoding="utf-8", sep=";", index=False, mode="w")
+    df['Ilosc_produktow'] = df['Ilosc_produktow'].round().astype(int)
+    df['Nr_katalogowy'] = df['Nr_katalogowy'].astype(str).str[0:13]
+    
+    df.to_csv("./Stany_Kaja" + date +".csv", encoding="utf-8", sep=";", index=False, mode="w")
 
 def fixfixed(date):
+    pd.set_option('precision', 0)
     df = pd.read_csv("tmp/Stany_Kaja" + date +"_Fixed.csv", encoding="utf-8", sep=";")
     df = df.dropna()
     # df['Ilosc_produktow'] = df['Ilosc_produktow'].replace('.0', '', regex=True)
     # df['Ilosc_produktow'] = df['Ilosc_produktow'].astype(str).str.replace(r'.0','', regex=True)
-    df['Nr_katalogowy'] = df['Nr_katalogowy'].round(decimals=0).astype('Int64')
+    #['Nr_katalogowy'] = df['Nr_katalogowy'].round(decimals=0)
+    #df['Nr_katalogowy'] = df['Ilosc_produktow'].replace('.0', '', regex=True)
+    #df['Ilosc_produktow'] = df['Ilosc_produktow'].replace('.0', '', regex=True)
     df.to_csv("Stany_Kaja" + date +".csv", encoding="utf-8", sep=";", index=False, mode="w")
 
 def timestamp():
@@ -195,10 +199,10 @@ def makeCSV():
     # addTkLighting() pojebane kodowanie
     addZumaLine(d)
     fixCSV(d)
-    fixfixed(d)
-    cleanerTmp()
-    csvCleaner()
-    skuCleaner()
+    # fixfixed(d)
+    #cleanerTmp()
+    #csvCleaner()
+    #skuCleaner()
 
 
 

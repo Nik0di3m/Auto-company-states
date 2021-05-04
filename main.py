@@ -6,6 +6,7 @@ from requests.auth import HTTPDigestAuth
 from requests.models import HTTPBasicAuth
 import wget
 import os
+import ssl
 from make import makeCSV
 import time
 from selenium import webdriver
@@ -15,6 +16,8 @@ import module.login as login
 import module.server as server
 from module.vLookUp import vLookUp
 
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 
@@ -42,11 +45,12 @@ def downloadHoldbox():
 
 
 def downloadLampex():
+    
     wget.download(server.lampexServer)
     os.rename(r'csv4', r'Lampex.csv')
 
 def downloadLedea():
-    r = requests.get(server.lampexServer, stream=True)
+    r = requests.get(server.ledeaServer, stream=True)
     with open("Ledea.csv", 'wb') as file:
         shutil.copyfileobj(r.raw, file)
 
