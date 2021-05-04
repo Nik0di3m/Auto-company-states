@@ -200,9 +200,9 @@ def makeCSV():
     addZumaLine(d)
     fixCSV(d)
     # fixfixed(d)
-    #cleanerTmp()
-    #csvCleaner()
-    #skuCleaner()
+    cleanerTmp()
+    csvCleaner()
+    skuCleaner()
 
 
 
